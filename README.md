@@ -57,8 +57,8 @@ POST
 
 BODY
 {
-	"username": "amaillot01@gmail.com",
-	"password": "goldorak"
+	"username": "lucmarie.lm@gmail.com",
+	"password": "anakin"
 }
 
 RETURN JWT

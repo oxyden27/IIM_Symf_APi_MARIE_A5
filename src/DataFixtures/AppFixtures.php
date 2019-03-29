@@ -41,9 +41,7 @@ class AppFixtures extends Fixture
             $manager->persist($author);
             $article = new Article();
             $article->setName('Article' . $i );
-            $article->setDescription('Leeees chevaliers du zodiaaaaaaaaAAqueees S\'en vont toujours à l\'attaque,
-En chantant une chanson bien haut,
-C\'est la chanson des héros.');
+            $article->setDescription('Les Padawan de l\'espaces remportent toujours la victoire.');
             $article->setCategory($categories[rand(0, 9)]);
             $article->setAuthor($author);
             $manager->persist($article);
@@ -54,7 +52,7 @@ C\'est la chanson des héros.');
         // Comments fixture
         for ($i = 0; $i < 10; $i++) {
             $comment = new Comment();
-            $comment->setContent('Albator c\'est bien mieux toute façon !');
+            $comment->setContent('ObiWan est le plus sage des Jedi !');
             $comment->setArticle($articles[rand(0, 9)]);
             $manager->persist($comment);
             $comments[] = $comment;
@@ -62,12 +60,12 @@ C\'est la chanson des héros.');
         }
 
         $user = new User();
-        $user->setEmail('amaillot01@gmail.com');
+        $user->setEmail('lucmarie.lm@gmail.com');
         $user->setRoles([
             'ROLE_ADMIN',
             'ROLE_API',
         ]);
-        $user->setPassword($this->encoder->encodePassword($user, 'goldorak'));
+        $user->setPassword($this->encoder->encodePassword($user, 'Anakin'));
         $manager->persist($user);
 
         $manager->flush();

@@ -1,11 +1,11 @@
 # Symfony-API-REST-IIM
 
-Veuillez bien suivre les étapes suivantes pour utiliser l'api
+Veuillez bien suivre les étapes suivantes pour utiliser l'API
 
 ## Installation
 
-Lancez une instance SQL
-Une image docker (docker-compose.yml) est présente dans le projet si besoin.
+Lancez une instance SQL.
+Une image docker (docker-compose.yml) est présente dans le projet si vous avez besoin.
 
 Lancer l'image Docker :
 ```bash
@@ -46,9 +46,8 @@ JWT_PASSPHRASE=mot-de-passe
 ```
 A mettre dans le fichier .env.local
 Si il n'existe pas, créez le.
-
 ## Utilisation
-Je conseille fortement d'utiliser PostMan
+Utiliser PostMan est conseillé
 
 Se connecter et récupérer le token : 
 

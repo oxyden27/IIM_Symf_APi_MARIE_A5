@@ -1,10 +1,10 @@
 version: "3.7"
 services:
-  iim_sql:
-    container_name: iim_mysql-api
-    hostname: by_mysql
-    image: mysql:5.7
-    ports:
-      - '3306:3306'
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
+    iim_mysql:
+        container_name: iim-mysql
+        hostname: by_mysql
+        image: mysql:5.7
+        ports:
+            - '3306:3306'
+        environment:
+            - MYSQL_ROOT_PASSWORD=root

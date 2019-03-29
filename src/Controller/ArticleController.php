@@ -81,26 +81,71 @@ class ArticleController extends FOSRestController
     }
 
     /**
-     * @FOSRest\Post("api/articles")
-     *
-     * @ParamConverter("article", converter="fos_rest.request_body")
-     *
-     * @param ObjectManager $manager
-     * @param Article $article
-     * @param ValidatorInterface $validator
-     *
-     * @return Response
-     */
+ * @FOSRest\Post("api/articles")
+ *
+ * @ParamConverter("article", converter="fos_rest.request_body")
+ *
+ * @param ObjectManager $manager
+ * @param Article $article
+ * @param ValidatorInterface $validator
+ *
+ * @return Response
+ */
     public function postArticleAction(ObjectManager $manager, Article $article, ValidatorInterface $validator)
     {
         $errors = $validator->validate($article);
 
         if (!count($errors)) {
-            $article->setName("New article");
+            //$article->setName("New article");
             $manager->persist($article);
             $manager->flush();
 
             return $this->json($article, Response::HTTP_CREATED);
+        } else {
+            return $this->json([
+                'success' => false,
+                'error' => $errors[0]->getMessage().' ('.$errors->getPropertyPath().')'
+            ], Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    /**
+     * @FOSRest\Post("api/articles/{categoryId}")
+     *
+     * @ParamConverter("article", converter="fos_rest.request_body")
+     * @param Article $article
+     * @param ObjectManager $manager
+     * @param ValidatorInterface $validator
+     * @param int $categoryId
+     *
+     * @return Response
+     */
+    public function postCategoryArticleAction(ObjectManager $manager, Article $article, ValidatorInterface $validator, $categoryId)
+    {
+        $encoders = [new JsonEncoder()]; // If no need for XmlEncoder
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $categoryRepository = $manager->getRepository(Category::class);
+        $category = $categoryRepository->find($categoryId);
+
+        $article->setCategory($category);
+
+        $errors = $validator->validate($article);
+
+        if (!count($errors)) {
+            //$article->setName("New article");
+            $manager->persist($article);
+            $manager->flush();
+
+            $jsonObject = $serializer->serialize($article, 'json', [
+                'circular_reference_handler' => function ($article) {
+                    return $article->getId();
+                }
+            ]);
+            return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
+
+            //return $this->json($article, Response::HTTP_CREATED);
         } else {
             return $this->json([
                 'success' => false,

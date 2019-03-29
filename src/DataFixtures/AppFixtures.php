@@ -33,7 +33,7 @@ class AppFixtures extends Fixture
 
         }
 
-        // Article fixtures and Author fixtures
+        // Articles fixture and Authors fixture
         for ($i = 0; $i < 10; $i++) {
             $author = new Author();
             $author->setFirstname('Firstname' . $i );
@@ -41,7 +41,9 @@ class AppFixtures extends Fixture
             $manager->persist($author);
             $article = new Article();
             $article->setName('Article' . $i );
-            $article->setDescription('Lorem ipsum kotlin c\'est bien Symfony c\'est mieux');
+            $article->setDescription('Leeees chevaliers du zodiaaaaaaaaAAqueees S\'en vont toujours à l\'attaque,
+En chantant une chanson bien haut,
+C\'est la chanson des héros.');
             $article->setCategory($categories[rand(0, 9)]);
             $article->setAuthor($author);
             $manager->persist($article);
@@ -49,10 +51,10 @@ class AppFixtures extends Fixture
 
         }
 
-        // Comment fixtures
+        // Comments fixture
         for ($i = 0; $i < 10; $i++) {
             $comment = new Comment();
-            $comment->setContent('Quand t\'es dans les six mètres il faut marquer !');
+            $comment->setContent('Albator c\'est bien mieux toute façon !');
             $comment->setArticle($articles[rand(0, 9)]);
             $manager->persist($comment);
             $comments[] = $comment;
@@ -60,11 +62,12 @@ class AppFixtures extends Fixture
         }
 
         $user = new User();
-        $user->setEmail('fillard.nico@hotmail.fr');
+        $user->setEmail('amaillot01@gmail.com');
         $user->setRoles([
-            'ROLE_ADMIN'
+            'ROLE_ADMIN',
+            'ROLE_API',
         ]);
-        $user->setPassword($this->encoder->encodePassword($user, 'kotlinforever'));
+        $user->setPassword($this->encoder->encodePassword($user, 'goldorak'));
         $manager->persist($user);
 
         $manager->flush();

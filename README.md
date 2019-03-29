@@ -73,10 +73,10 @@ AUTH JWT
 
 BODY
 {
-    "name": "ArticleTest",
-    "description": "Descriptionb du test de la mort",
+    "name": "ArticlePrototype",
+    "description": "Description",
     "author": {
-        "firstname": "Le nouvel auteur ",
+        "firstname": "Author ",
         "lastname": "New"
     }
 }
